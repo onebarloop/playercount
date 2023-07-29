@@ -60,9 +60,14 @@ const handleSubmit = (e: Event) => {
 <style scoped>
 form {
   display: flex;
+  align-items: center;
   position: relative;
   gap: 15px;
   margin-top: 25px;
+}
+
+form input {
+  height: 30px;
 }
 
 .warning {
@@ -70,7 +75,7 @@ form {
   transition: all;
   color: #bfa55f;
   bottom: 40px;
-  left: 100px;
+  left: 60px;
 }
 
 ul {

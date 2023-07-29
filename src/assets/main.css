@@ -26,10 +26,6 @@ button {
   text-align: center;
 }
 
-button > * {
-  padding: 20px;
-}
-
 button:hover {
   background-color: #10816a;
   color: rgb(196, 229, 218);
