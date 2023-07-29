@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import AddPlayer from './components/AddPlayer.vue'
+import GameCounter from './components/GameCounter.vue'
 import { computed, ref, type Ref } from 'vue'
 import { Player } from '@/Classes'
 
+type View = 'home' | 'count'
+
 const playerList: Ref<Player[]> = ref([])
+const view: Ref<View> = ref('home')
 
 const showStart = computed(() => {
   if (playerList.value.length > 1) {
@@ -12,6 +16,14 @@ const showStart = computed(() => {
     return false
   }
 })
+
+const begin = () => {
+  view.value = 'count'
+}
+
+const stop = () => {
+  view.value = 'home'
+}
 </script>
 
 <template>
@@ -19,9 +31,14 @@ const showStart = computed(() => {
     <h1>Player Counter</h1>
   </header>
   <main>
-    <h2>Add Players</h2>
-    <AddPlayer :playerList="playerList" @newPlayer="(e) => playerList.push(e)" />
-    <button v-if="showStart">Let's begin!</button>
+    <div v-if="view === 'home'" class="home">
+      <AddPlayer :playerList="playerList" @newPlayer="(player) => playerList.push(player)" />
+      <button v-if="showStart" @click="begin">Let's begin!</button>
+    </div>
+    <div v-if="view === 'count'" class="count">
+      <GameCounter :playerList="playerList" />
+      <button @click="stop">Back</button>
+    </div>
   </main>
 </template>
 
@@ -36,7 +53,8 @@ header {
   margin-bottom: 20px;
 }
 
-main {
+.home,
+.count {
   display: flex;
   flex-direction: column;
   justify-content: center;

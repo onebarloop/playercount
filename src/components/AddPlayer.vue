@@ -15,6 +15,7 @@ const handleSubmit = (e: Event) => {
 </script>
 
 <template>
+  <h2>Add Players</h2>
   <div>
     <form @submit.prevent="handleSubmit">
       <label for="playername">New Player:</label>
