@@ -1,15 +1,33 @@
 <script setup lang="ts">
 import { Player } from '@/Classes'
+import { computed, ref } from 'vue'
 
-defineProps<{
+const props = defineProps<{
   playerList: Player[]
 }>()
+
+const warning = ref('')
 
 const emit = defineEmits(['newPlayer'])
 
 const handleSubmit = (e: Event) => {
+  warning.value = ''
   const target = e.target as HTMLFormElement
-  emit('newPlayer', new Player(target.playername.value))
+  const playerName = target.playername.value
+  if (playerName === '') {
+    warning.value = 'Please input a valid name'
+    setTimeout(() => {
+      warning.value = ''
+    }, 2000)
+  } else if (props.playerList.map((player) => player.name).includes(playerName)) {
+    warning.value = 'Name is already taken'
+    setTimeout(() => {
+      warning.value = ''
+    }, 2000)
+  } else {
+    emit('newPlayer', new Player(playerName))
+  }
+
   target.reset()
 }
 </script>
@@ -23,8 +41,9 @@ const handleSubmit = (e: Event) => {
       <button type="submit"><span>Okay</span></button>
     </form>
   </div>
+  <p>{{ warning }}</p>
   <ul>
-    <li v-for="(player, index) in playerList" :key="index">
+    <li v-for="(player, index) in props.playerList" :key="index">
       <p v-if="true">{{ player.name }}</p>
     </li>
   </ul>
@@ -33,6 +52,7 @@ const handleSubmit = (e: Event) => {
 form {
   display: flex;
   gap: 15px;
+  margin-top: 25px;
 }
 
 ul {

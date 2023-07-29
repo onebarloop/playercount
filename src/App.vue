@@ -7,6 +7,7 @@ import { Player } from '@/Classes'
 type View = 'home' | 'count'
 
 const playerList: Ref<Player[]> = ref([])
+
 const view: Ref<View> = ref('home')
 
 const showStart = computed(() => {
