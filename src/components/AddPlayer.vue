@@ -1,14 +1,21 @@
 <script setup lang="ts">
 import { Player } from '@/Classes'
-import { computed, ref } from 'vue'
+
+import { ref } from 'vue'
 
 const props = defineProps<{
   playerList: Player[]
+  showStart: boolean
 }>()
 
 const warning = ref('')
 
-const emit = defineEmits(['newPlayer'])
+const emit = defineEmits<{
+  (event: 'newPlayer', player: Player): void
+  (event: 'deletePlayer', playername: string): void
+  (event: 'start'): void
+  (event: 'reset'): void
+}>()
 
 const handleSubmit = (e: Event) => {
   warning.value = ''
@@ -27,7 +34,6 @@ const handleSubmit = (e: Event) => {
   } else {
     emit('newPlayer', new Player(playerName))
   }
-
   target.reset()
 }
 </script>
@@ -35,24 +41,36 @@ const handleSubmit = (e: Event) => {
 <template>
   <h2>Add Players</h2>
   <div>
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="handleSubmit" autocomplete="off">
+      <p class="warning">{{ warning }}</p>
       <label for="playername">New Player:</label>
       <input id="playername" type="text" />
       <button type="submit"><span>Okay</span></button>
     </form>
   </div>
-  <p>{{ warning }}</p>
   <ul>
     <li v-for="(player, index) in props.playerList" :key="index">
-      <p v-if="true">{{ player.name }}</p>
+      <p>{{ player.name }}</p>
+      <button @click="$emit('deletePlayer', player.name)" style="font-weight: bold">X</button>
     </li>
   </ul>
+  <button v-if="showStart" @click="$emit('start')"><span>Let's begin!</span></button>
+  <button @click="$emit('reset')"><span>Reset</span></button>
 </template>
 <style scoped>
 form {
   display: flex;
+  position: relative;
   gap: 15px;
   margin-top: 25px;
+}
+
+.warning {
+  position: absolute;
+  transition: all;
+  color: #bfa55f;
+  bottom: 40px;
+  left: 100px;
 }
 
 ul {
@@ -67,5 +85,10 @@ li {
   border: 2px solid #009879;
   padding: 10px;
   transition: all 1s ease-out;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: space-between;
+  width: 150px;
 }
 </style>

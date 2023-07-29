@@ -17,12 +17,12 @@ a,
 
 button {
   background-color: #0ec39f;
-  color: #535855;
+  color: #3a3c3b;
   height: 30px;
   min-width: 30px;
   cursor: pointer;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   text-align: center;
 }
 

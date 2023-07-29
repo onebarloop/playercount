@@ -4,6 +4,10 @@ import { Player } from '@/Classes'
 defineProps<{
   playerList: Player[]
 }>()
+
+defineEmits<{
+  (event: 'stop'): void
+}>()
 </script>
 
 <template>
@@ -26,6 +30,7 @@ defineProps<{
       </tr>
     </tbody>
   </table>
+  <button @click="$emit('stop')"><span>Back</span></button>
 </template>
 
 <style scoped>

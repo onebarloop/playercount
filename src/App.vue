@@ -18,12 +18,14 @@ const showStart = computed(() => {
   }
 })
 
-const begin = () => {
-  view.value = 'count'
-}
-
-const stop = () => {
-  view.value = 'home'
+const deletePlayer = (playername: string) => {
+  playerList.value = playerList.value.filter((player) => {
+    if (player.name === playername) {
+      return
+    } else {
+      return player
+    }
+  })
 }
 </script>
 
@@ -35,14 +37,17 @@ const stop = () => {
   <main>
     <Transition>
       <div v-if="view === 'home'" class="home">
-        <AddPlayer :playerList="playerList" @newPlayer="(player) => playerList.push(player)" />
-        <button v-if="showStart" @click="begin"><span>Let's begin!</span></button>
-        <button @click="() => (playerList = [])"><span>Reset</span></button>
+        <AddPlayer
+          :playerList="playerList"
+          :showStart="showStart"
+          @newPlayer="(player) => playerList.push(player)"
+          @delete-player="deletePlayer"
+          @start="() => (view = 'count')"
+          @reset="() => (playerList = [])"
+        />
       </div>
-
       <div v-else-if="view === 'count'" class="count">
-        <GameCounter :playerList="playerList" />
-        <button @click="stop"><span>Back</span></button>
+        <GameCounter :playerList="playerList" @stop="() => (view = 'home')" />
       </div>
     </Transition>
   </main>
