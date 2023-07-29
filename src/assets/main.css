@@ -15,6 +15,27 @@ a,
   transition: 0.4s;
 }
 
+button {
+  background-color: #0ec39f;
+  color: #535855;
+  height: 30px;
+  min-width: 30px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+}
+
+button > * {
+  padding: 20px;
+}
+
+button:hover {
+  background-color: #10816a;
+  color: rgb(196, 229, 218);
+  transition: background-color, 0.5s;
+}
+
 @media (hover: hover) {
   a:hover {
     background-color: hsla(160, 100%, 37%, 0.2);

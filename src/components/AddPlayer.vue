@@ -20,16 +20,32 @@ const handleSubmit = (e: Event) => {
     <form @submit.prevent="handleSubmit">
       <label for="playername">New Player:</label>
       <input id="playername" type="text" />
-      <button type="submit">Okay</button>
+      <button type="submit"><span>Okay</span></button>
     </form>
   </div>
-  <li v-for="(player, index) in playerList" :key="index">
-    {{ player.name }}
-  </li>
+  <ul>
+    <li v-for="(player, index) in playerList" :key="index">
+      <p v-if="true">{{ player.name }}</p>
+    </li>
+  </ul>
 </template>
 <style scoped>
 form {
   display: flex;
   gap: 15px;
+}
+
+ul {
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+li {
+  list-style-type: none;
+  border: 2px solid #009879;
+  padding: 10px;
+  transition: all 1s ease-out;
 }
 </style>

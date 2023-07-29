@@ -30,15 +30,20 @@ const stop = () => {
   <header>
     <h1>Player Counter</h1>
   </header>
+
   <main>
-    <div v-if="view === 'home'" class="home">
-      <AddPlayer :playerList="playerList" @newPlayer="(player) => playerList.push(player)" />
-      <button v-if="showStart" @click="begin">Let's begin!</button>
-    </div>
-    <div v-if="view === 'count'" class="count">
-      <GameCounter :playerList="playerList" />
-      <button @click="stop">Back</button>
-    </div>
+    <Transition>
+      <div v-if="view === 'home'" class="home">
+        <AddPlayer :playerList="playerList" @newPlayer="(player) => playerList.push(player)" />
+        <button v-if="showStart" @click="begin"><span>Let's begin!</span></button>
+        <button @click="() => (playerList = [])"><span>Reset</span></button>
+      </div>
+
+      <div v-else-if="view === 'count'" class="count">
+        <GameCounter :playerList="playerList" />
+        <button @click="stop"><span>Back</span></button>
+      </div>
+    </Transition>
   </main>
 </template>
 
@@ -57,8 +62,15 @@ header {
 .count {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 10px;
+}
+
+.v-enter-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from {
+  opacity: 0;
 }
 </style>
