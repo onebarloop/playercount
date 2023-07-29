@@ -1,3 +1,19 @@
+<script setup lang="ts">
+import { Player } from '@/Classes'
+
+defineProps<{
+  playerList: Player[]
+}>()
+
+const emit = defineEmits(['newPlayer'])
+
+const handleSubmit = (e: Event) => {
+  const target = e.target as HTMLFormElement
+  emit('newPlayer', new Player(target.playername.value))
+  target.reset()
+}
+</script>
+
 <template>
   <div>
     <form @submit.prevent="handleSubmit">
@@ -9,5 +25,10 @@
   <li v-for="(player, index) in playerList" :key="index">
     {{ player.name }}
   </li>
-  <button v-if="showStart">Let's begin!</button>
 </template>
+<style scoped>
+form {
+  display: flex;
+  gap: 15px;
+}
+</style>

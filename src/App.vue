@@ -1,20 +1,9 @@
 <script setup lang="ts">
+import AddPlayer from './components/AddPlayer.vue'
 import { computed, ref, type Ref } from 'vue'
+import { Player } from '@/Classes'
 
-class Player {
-  name: string
-  score: number = 0
-  constructor(name: string) {
-    this.name = name
-  }
-}
 const playerList: Ref<Player[]> = ref([])
-
-function handleSubmit(e: Event) {
-  const target = e.target as HTMLFormElement
-  playerList.value.push(new Player(target.playername.value))
-  target.reset()
-}
 
 const showStart = computed(() => {
   if (playerList.value.length > 1) {
@@ -29,20 +18,9 @@ const showStart = computed(() => {
   <header>
     <h1>Player Counter</h1>
   </header>
-
   <main>
     <h2>Add Players</h2>
-
-    <div>
-      <form @submit.prevent="handleSubmit">
-        <label for="playername">New Player:</label>
-        <input id="playername" type="text" />
-        <button type="submit">Okay</button>
-      </form>
-    </div>
-    <li v-for="(player, index) in playerList" :key="index">
-      {{ player.name }}
-    </li>
+    <AddPlayer :playerList="playerList" @newPlayer="(e) => playerList.push(e)" />
     <button v-if="showStart">Let's begin!</button>
   </main>
 </template>
@@ -64,10 +42,5 @@ main {
   justify-content: center;
   align-items: center;
   gap: 10px;
-}
-
-form {
-  display: flex;
-  gap: 15px;
 }
 </style>
