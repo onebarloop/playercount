@@ -2,6 +2,7 @@
 import { Player } from '@/Classes'
 
 import { ref } from 'vue'
+import { formWarning } from '../lib/helpers'
 
 const props = defineProps<{
   playerList: Player[]
@@ -21,16 +22,14 @@ const handleSubmit = (e: Event) => {
   warning.value = ''
   const target = e.target as HTMLFormElement
   const playerName = target.playername.value
-  if (playerName === '') {
-    warning.value = 'Please input a valid name'
-    setTimeout(() => {
-      warning.value = ''
-    }, 2000)
-  } else if (props.playerList.map((player) => player.name).includes(playerName)) {
-    warning.value = 'Name is already taken'
-    setTimeout(() => {
-      warning.value = ''
-    }, 2000)
+  if (props.playerList.length >= 6) {
+    formWarning('Max playercount ist 6', warning)
+  } else if (playerName === '') {
+    formWarning('Please input a valid name', warning)
+  } else if (
+    props.playerList.map((player) => player.name.toLowerCase()).includes(playerName.toLowerCase())
+  ) {
+    formWarning('Name is already taken', warning)
   } else {
     emit('newPlayer', new Player(playerName))
   }

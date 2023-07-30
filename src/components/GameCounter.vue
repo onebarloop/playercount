@@ -1,13 +1,29 @@
 <script setup lang="ts">
 import { Player } from '@/Classes'
+import { computed } from 'vue'
 
-defineProps<{
+const props = defineProps<{
   playerList: Player[]
 }>()
 
 defineEmits<{
   (event: 'stop'): void
 }>()
+
+/* SORT TODO
+const sortedList = computed({
+  get() {
+    return [...props.playerList]
+  },
+  set(newValue) {
+    sortedList.value = newValue
+  }
+}) 
+
+sortedList.value = [new Player('test')]
+/*[...props.playerList].sort((a, b) => {
+    return b.score - a.score 
+  })*/
 </script>
 
 <template>
@@ -22,7 +38,7 @@ defineEmits<{
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(player, index) in playerList" :key="index">
+      <tr v-for="(player, index) in props.playerList" :key="index">
         <td>{{ player.name }}</td>
         <td>{{ player.score }}</td>
         <td><button @click="player.increaseScore()" style="font-weight: bold">+</button></td>
