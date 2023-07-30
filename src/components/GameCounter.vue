@@ -25,8 +25,8 @@ defineEmits<{
       <tr v-for="(player, index) in playerList" :key="index">
         <td>{{ player.name }}</td>
         <td>{{ player.score }}</td>
-        <td><button @click="player.score++" style="font-weight: bold">+</button></td>
-        <td><button @click="player.score--" style="font-weight: bold">-</button></td>
+        <td><button @click="player.increaseScore()" style="font-weight: bold">+</button></td>
+        <td><button @click="player.decreaseScore()" style="font-weight: bold">-</button></td>
       </tr>
     </tbody>
   </table>

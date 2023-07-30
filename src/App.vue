@@ -6,7 +6,7 @@ import { Player } from '@/Classes'
 
 type View = 'home' | 'count'
 
-const playerList: Ref<Player[]> = ref([])
+const playerList: Ref<Player[]> = ref([new Player('one'), new Player('two')])
 
 const view: Ref<View> = ref('home')
 

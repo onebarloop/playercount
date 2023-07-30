@@ -51,6 +51,7 @@ const handleSubmit = (e: Event) => {
   <ul>
     <li v-for="(player, index) in props.playerList" :key="index">
       <p>{{ player.name }}</p>
+      <p class="score">{{ player.score }}</p>
       <button @click="$emit('deletePlayer', player.name)" style="font-weight: bold">X</button>
     </li>
   </ul>
@@ -94,6 +95,10 @@ li {
   gap: 5px;
   align-items: center;
   justify-content: space-between;
-  width: 150px;
+  min-width: 150px;
+}
+
+.score {
+  font-size: 1.5rem;
 }
 </style>
