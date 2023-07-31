@@ -1,0 +1,20 @@
+@tailwind components;
+
+@layer components {
+  button {
+    background-color: #0ec39f;
+    color: #3a3c3b;
+    height: 30px;
+    min-width: 30px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    padding: 0 1em;
+    &:hover {
+      background-color: #10816a;
+      color: rgb(196, 229, 218);
+      transition: background-color, 0.5s;
+    }
+  }
+}
