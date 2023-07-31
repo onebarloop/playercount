@@ -33,7 +33,7 @@ const deletePlayer = (playername: string) => {
 
 <template>
   <header>
-    <h1>Player Counter</h1>
+    <h1 className="underline">Player Counter</h1>
   </header>
 
   <main>
