@@ -1,29 +1,31 @@
 <script setup lang="ts">
 import { Player } from '@/Classes'
-import { computed } from 'vue'
+import { ref } from 'vue'
 
 const props = defineProps<{
   playerList: Player[]
+  sorted: boolean
 }>()
 
-defineEmits<{
+const emit = defineEmits<{
   (event: 'stop'): void
+  (event: 'sort'): void
 }>()
 
-/* SORT TODO
-const sortedList = computed({
-  get() {
-    return [...props.playerList]
-  },
-  set(newValue) {
-    sortedList.value = newValue
-  }
-}) 
+const sortedList = !props.sorted
+  ? ref([...props.playerList])
+  : ref(
+      [...props.playerList].sort((a, b) => {
+        return b.score - a.score
+      })
+    )
 
-sortedList.value = [new Player('test')]
-/*[...props.playerList].sort((a, b) => {
-    return b.score - a.score 
-  })*/
+function sortList() {
+  emit('sort')
+  return [...props.playerList].sort((a, b) => {
+    return b.score - a.score
+  })
+}
 </script>
 
 <template>
@@ -38,7 +40,7 @@ sortedList.value = [new Player('test')]
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(player, index) in props.playerList" :key="index">
+      <tr v-for="(player, index) in sortedList" :key="index">
         <td>{{ player.name }}</td>
         <td>{{ player.score }}</td>
         <td><button @click="player.increaseScore()" style="font-weight: bold">+</button></td>
@@ -47,6 +49,7 @@ sortedList.value = [new Player('test')]
     </tbody>
   </table>
   <button @click="$emit('stop')"><span>Back</span></button>
+  <button @click="sortedList = sortList()">Click</button>
 </template>
 
 <style scoped>

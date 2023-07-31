@@ -10,6 +10,8 @@ const playerList: Ref<Player[]> = ref([new Player('one'), new Player('two')])
 
 const view: Ref<View> = ref('home')
 
+const sorted = ref(false)
+
 const showStart = computed(() => {
   if (playerList.value.length > 1) {
     return true
@@ -47,7 +49,16 @@ const deletePlayer = (playername: string) => {
         />
       </div>
       <div v-else-if="view === 'count'" class="count">
-        <GameCounter :playerList="playerList" @stop="() => (view = 'home')" />
+        <GameCounter
+          :playerList="playerList"
+          :sorted="sorted"
+          @stop="() => (view = 'home')"
+          @sort="
+            () => {
+              sorted = true
+            }
+          "
+        />
       </div>
     </Transition>
   </main>
