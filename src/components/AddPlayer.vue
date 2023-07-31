@@ -39,14 +39,14 @@ const handleSubmit = (e: Event) => {
 
 <template>
   <h2>Add Players</h2>
-  <div>
-    <form @submit.prevent="handleSubmit" autocomplete="off">
-      <p class="warning">{{ warning }}</p>
-      <label for="playername">New Player:</label>
-      <input id="playername" type="text" />
-      <button type="submit"><span>Okay</span></button>
-    </form>
-  </div>
+
+  <form @submit.prevent="handleSubmit" autocomplete="off">
+    <p class="warning">{{ warning }}</p>
+    <label for="playername">New Player:</label>
+    <input class="text-black" id="playername" type="text" />
+    <button>Okay</button>
+  </form>
+
   <ul>
     <li v-for="(player, index) in props.playerList" :key="index">
       <p>{{ player.name }}</p>
@@ -63,7 +63,6 @@ form {
   align-items: center;
   position: relative;
   gap: 15px;
-  margin-top: 25px;
 }
 
 form input {
