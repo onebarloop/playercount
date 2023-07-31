@@ -1,30 +1,30 @@
 <script setup lang="ts">
-import { Player } from '@/Classes'
-import { ref } from 'vue'
+import { Player } from '@/Classes';
+import { ref } from 'vue';
 
 const props = defineProps<{
-  playerList: Player[]
-  sorted: boolean
-}>()
+  playerList: Player[];
+  sorted: boolean;
+}>();
 
 const emit = defineEmits<{
-  (event: 'stop'): void
-  (event: 'sort'): void
-}>()
+  (event: 'stop'): void;
+  (event: 'sort'): void;
+}>();
 
 const sortedList = !props.sorted
   ? ref([...props.playerList])
   : ref(
       [...props.playerList].sort((a, b) => {
-        return b.score - a.score
+        return b.score - a.score;
       })
-    )
+    );
 
 function sortList() {
-  emit('sort')
+  emit('sort');
   return [...props.playerList].sort((a, b) => {
-    return b.score - a.score
-  })
+    return b.score - a.score;
+  });
 }
 </script>
 
@@ -49,7 +49,7 @@ function sortList() {
     </tbody>
   </table>
   <button @click="$emit('stop')"><span>Back</span></button>
-  <button @click="sortedList = sortList()">Click</button>
+  <button @click="sortedList = sortList()">Sort by score</button>
 </template>
 
 <style scoped>

@@ -1,34 +1,34 @@
 <script setup lang="ts">
-import AddPlayer from './components/AddPlayer.vue'
-import GameCounter from './components/GameCounter.vue'
-import { computed, ref, type Ref } from 'vue'
-import { Player } from '@/Classes'
+import AddPlayer from './components/AddPlayer.vue';
+import GameCounter from './components/GameCounter.vue';
+import { computed, ref, type Ref } from 'vue';
+import { Player } from '@/Classes';
 
-type View = 'home' | 'count'
+type View = 'home' | 'count';
 
-const playerList: Ref<Player[]> = ref([new Player('one'), new Player('two')])
+const playerList: Ref<Player[]> = ref([new Player('one'), new Player('two')]);
 
-const view: Ref<View> = ref('home')
+const view: Ref<View> = ref('home');
 
-const sorted = ref(false)
+const sorted = ref(false);
 
 const showStart = computed(() => {
   if (playerList.value.length > 1) {
-    return true
+    return true;
   } else {
-    return false
+    return false;
   }
-})
+});
 
 const deletePlayer = (playername: string) => {
   playerList.value = playerList.value.filter((player) => {
     if (player.name === playername) {
-      return
+      return;
     } else {
-      return player
+      return player;
     }
-  })
-}
+  });
+};
 </script>
 
 <template>
@@ -55,7 +55,7 @@ const deletePlayer = (playername: string) => {
           @stop="() => (view = 'home')"
           @sort="
             () => {
-              sorted = true
+              sorted = true;
             }
           "
         />

@@ -1,13 +1,13 @@
 export class Player {
-  name: string
-  score: number = 0
+  name: string;
+  score: number = 0;
   constructor(name: string) {
-    this.name = name
+    this.name = name;
   }
   increaseScore() {
-    this.score++
+    this.score++;
   }
   decreaseScore() {
-    this.score--
+    this.score--;
   }
 }

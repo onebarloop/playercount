@@ -1,40 +1,40 @@
 <script setup lang="ts">
-import { Player } from '@/Classes'
+import { Player } from '@/Classes';
 
-import { ref } from 'vue'
-import { formWarning } from '../lib/helpers'
+import { ref } from 'vue';
+import { formWarning } from '../lib/helpers';
 
 const props = defineProps<{
-  playerList: Player[]
-  showStart: boolean
-}>()
+  playerList: Player[];
+  showStart: boolean;
+}>();
 
-const warning = ref('')
+const warning = ref('');
 
 const emit = defineEmits<{
-  (event: 'newPlayer', player: Player): void
-  (event: 'deletePlayer', playername: string): void
-  (event: 'start'): void
-  (event: 'reset'): void
-}>()
+  (event: 'newPlayer', player: Player): void;
+  (event: 'deletePlayer', playername: string): void;
+  (event: 'start'): void;
+  (event: 'reset'): void;
+}>();
 
 const handleSubmit = (e: Event) => {
-  warning.value = ''
-  const target = e.target as HTMLFormElement
-  const playerName = target.playername.value
+  warning.value = '';
+  const target = e.target as HTMLFormElement;
+  const playerName = target.playername.value;
   if (props.playerList.length >= 6) {
-    formWarning('Max playercount ist 6', warning)
+    formWarning('Max playercount ist 6', warning);
   } else if (playerName === '') {
-    formWarning('Please input a valid name', warning)
+    formWarning('Please input a valid name', warning);
   } else if (
     props.playerList.map((player) => player.name.toLowerCase()).includes(playerName.toLowerCase())
   ) {
-    formWarning('Name is already taken', warning)
+    formWarning('Name is already taken', warning);
   } else {
-    emit('newPlayer', new Player(playerName))
+    emit('newPlayer', new Player(playerName));
   }
-  target.reset()
-}
+  target.reset();
+};
 </script>
 
 <template>
