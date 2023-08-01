@@ -32,13 +32,13 @@ const deletePlayer = (playername: string) => {
 </script>
 
 <template>
-  <header>
-    <h1 className="underline">Player Counter</h1>
+  <header class="flex justify-center mb-5">
+    <h1>Player Counter</h1>
   </header>
 
   <main>
     <Transition>
-      <div v-if="view === 'home'" class="home">
+      <div v-if="view === 'home'" class="flex flex-col items-center gap-5">
         <AddPlayer
           :playerList="playerList"
           :showStart="showStart"
@@ -48,7 +48,7 @@ const deletePlayer = (playername: string) => {
           @reset="() => (playerList = [])"
         />
       </div>
-      <div v-else-if="view === 'count'" class="count">
+      <div v-else-if="view === 'count'" class="flex flex-col items-center gap-5">
         <GameCounter
           :playerList="playerList"
           :sorted="sorted"
@@ -65,28 +65,10 @@ const deletePlayer = (playername: string) => {
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-header {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.home,
-.count {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
 
 .v-enter-active {
   transition: opacity 0.5s ease;
 }
-
 .v-enter-from {
   opacity: 0;
 }
