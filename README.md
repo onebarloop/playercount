@@ -1,6 +1,6 @@
 ## Playercount
 
-### a small vue/vite project
+### a little vue/vite project
 
 <br>
 🏗️🏗️🏗️ still in development 🏗️🏗️🏗️
