@@ -51,8 +51,7 @@ const handleSubmit = (e: Event) => {
     <li v-for="(player, index) in props.playerList" :key="index" class="fade-in">
       <p>{{ player.name }}</p>
       <p class="text-2xl">{{ player.score }}</p>
-      <button
-       @click="$emit('deletePlayer', player.name)" style="font-weight: bold">X</button>
+      <button @click="$emit('deletePlayer', player.name)" style="font-weight: bold">X</button>
     </li>
   </ul>
   <button v-if="showStart" @click="$emit('start')"><span>Let's begin!</span></button>

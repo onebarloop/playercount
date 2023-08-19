@@ -65,7 +65,6 @@ const deletePlayer = (playername: string) => {
 </template>
 
 <style scoped>
-
 .v-enter-active {
   transition: opacity 0.5s ease;
 }
